@@ -5,36 +5,33 @@ HOST: http://polls.apiblueprint.org/
 
 Polls is a simple API allowing consumers to view polls and vote in them.
 
-## POI [/poi{?page,category,radius}]
+## POI [/poi{?page,category,center,radius}]
 
-### Explore spots [GET]
+### Get POIs [GET]
 
 + Parameters
     + page (optional, number, `1`)
     + category (optional, array, [`1`])
-    + radius (optional, number, `5.67`)
+    + center (string, `47.530907,19.039727`)
+    + radius (number, `5.67`)
+    
 
 + Response 200 (application/json)
 
-    + Attribute (Pager_Spot)
+    + Attributes
+        + array[POI]
 
-### Upload spot [POST]
+### Upload POI [POST]
 
 + Request (application/json)
 
     + Body
 
             {
-                "name": "spot name",
-                "category": 1,
-                "tags": [1, 2, 3],
-                "price_category": 3,
-                "location": (Location object),
-                "tel": ["+3612345678"],
-                "web": ["http://spotname.hu"],
-                "facebook": "http://facebook.com/spotname",
-                "twitter": "http://twitter.com/spotname",
-                "instagram": "http://instagram.com/spotname"
+                "name": "Motor bolt",
+                "location": POILocation,
+                "category_id": 3,
+                "owner": false,
             }
 
 + Response 201 (application/json)
@@ -45,27 +42,71 @@ Polls is a simple API allowing consumers to view polls and vote in them.
                 "id": 1
             }
 
+## Categories [/category]
+
+### Get categories [GET]
+
++ Response 200 (application/json)
+
+    + Attributes
+        + array[POICategory]
+
 # Data structures
 
-## `Pager_Spot` (object)
-
-+ total: 2 (number)
-+ per_page: 15 (number)
-+ current_page: 1 (number)
-+ last_page: 1 (number)
-+ from: 1 (number)
-+ to: 2 (number)
-+ data: Spot, Spot (array[Spot])
-
-## Spot (object)
+## POI (object)
 
 + id: 1 (number)
-+ name: `1906 Restaurant` (string)
-+ price_category: 3 (number)
-+ phone_numbers: `+3612345678` (array[string])
-+ websites: `http://1906.hu` (array[string])
-+ `facebook_page_url`: `http://facebook.com/1906_restaurant` (string)
-+ `twitter_page_url`: `http://twitter.com/1906_restaurant` (string)
-+ `instagram_page_url`: `http://instagram.com/1906_restaurant` (string)
-+ `is_localtraveller`: false (boolean)
-ti@c
++ name: `Motor bolt` (string)
++ location
+    Include POILocation
++ category
+    Include POICategory
++ has_owner: false (boolean)
++ description: `Ez egy nagyon jo bolt. Van itt minden.` (optional, string)
++ website: `http://motorbolt.hu` (optional, string)
++ phone_number: `+3612345678` (optional, string)
++ opening_hours
+    Include POIOpening
+
+## POILocation (object)
+
++ address: `Budapest, Lajos u. 74., 1036` (string)
++ lat: 47.530907 (number)
++ lng: 19.039727 (number)
+
+## POICategory (object)
+
++ id: 3 (number)
++ name: `Motor uzlet` (string)
+
+## POIOpening (object)
+
++ periods: POIOpeningPeriod,POIOpeningPeriod,POIOpeningPeriod,POIOpeningPeriod,POIOpeningPeriod,POIOpeningPeriod,POIOpeningPeriod (array[POIOpeningPeriod])
+    // is an array of opening periods covering seven days, starting from Sunday, in chronological order. 
++ weekday_text: `["Monday: 11:30 AM – 11:00 PM",
+                  "Tuesday: 11:30 AM – 11:00 PM",
+                  "Wednesday: 11:30 AM – 11:00 PM",
+                  "Thursday: 11:30 AM – 11:00 PM",
+                  "Friday: 11:30 AM – 11:00 PM",
+                  "Saturday: 5:00 – 11:00 PM",
+                  "Sunday: 11:30 AM – 11:00 PM"]` (array[string])
+    // is an array of seven strings representing the formatted opening hours for each day of the week. If a language parameter was specified in the Place Details request,
+    // the Places Service will format and localize the opening hours appropriately for that language. The ordering of the elements in this array depends on the language parameter.
+    // Some languages start the week on Monday while others start on Sunday.
+
+## POIOpeningPeriod (object)
+
++ open
+    Include POIOpeningDayTime
+    // contains a pair of day and time objects describing when the place opens
++ close
+    Include POIOpeningDayTime
+    // may contain a pair of day and time objects describing when the place closes. Note: If a place is always open, the close section will be missing from the response.
+    // Applications can rely on always-open being represented as an open period containing day with value 0 and time with value 0000, and no close
+
+## POIOpeningDayTime (object)
+
++ day: 1 (number)
+    // a number from 0–6, corresponding to the days of the week, starting on Sunday. For example, 2 means Tuesday.
++ time: `1545` (string)
+    // may contain a time of day in 24-hour hhmm format (values are in the range 0000–2359). The time will be reported in the place’s timezone.
