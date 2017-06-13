@@ -1,0 +1,71 @@
+FORMAT: 1A
+HOST: http://polls.apiblueprint.org/
+
+# Motoglobe POI search
+
+Polls is a simple API allowing consumers to view polls and vote in them.
+
+## POI [/poi{?page,category,radius}]
+
+### Explore spots [GET]
+
++ Parameters
+    + page (optional, number, `1`)
+    + category (optional, array, [`1`])
+    + radius (optional, number, `5.67`)
+
++ Response 200 (application/json)
+
+    + Attribute (Pager_Spot)
+
+### Upload spot [POST]
+
++ Request (application/json)
+
+    + Body
+
+            {
+                "name": "spot name",
+                "category": 1,
+                "tags": [1, 2, 3],
+                "price_category": 3,
+                "location": (Location object),
+                "tel": ["+3612345678"],
+                "web": ["http://spotname.hu"],
+                "facebook": "http://facebook.com/spotname",
+                "twitter": "http://twitter.com/spotname",
+                "instagram": "http://instagram.com/spotname"
+            }
+
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                "id": 1
+            }
+
+# Data structures
+
+## `Pager_Spot` (object)
+
++ total: 2 (number)
++ per_page: 15 (number)
++ current_page: 1 (number)
++ last_page: 1 (number)
++ from: 1 (number)
++ to: 2 (number)
++ data: Spot, Spot (array[Spot])
+
+## Spot (object)
+
++ id: 1 (number)
++ name: `1906 Restaurant` (string)
++ price_category: 3 (number)
++ phone_numbers: `+3612345678` (array[string])
++ websites: `http://1906.hu` (array[string])
++ `facebook_page_url`: `http://facebook.com/1906_restaurant` (string)
++ `twitter_page_url`: `http://twitter.com/1906_restaurant` (string)
++ `instagram_page_url`: `http://instagram.com/1906_restaurant` (string)
++ `is_localtraveller`: false (boolean)
+ti@c
