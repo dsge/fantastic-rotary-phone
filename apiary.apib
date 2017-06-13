@@ -8,12 +8,20 @@ Polls is a simple API allowing consumers to view polls and vote in them.
 ## POI [/poi{?page,category,center,radius}]
 
 ### Get POIs [GET]
++ Headers
+
+        Accept-language: `hu,en-US;q=0.8,en;q=0.6`
 
 + Parameters
     + page (optional, number, `1`)
     + category (optional, array, [`1`])
-    + center (string, `47.530907,19.039727`)
-    + radius (number, `5.67`)
+    + center (required, string, `47.530907,19.039727`)
+    
+        GPS koordináták
+        
+    + radius (required, number, `5.67`)
+    
+        Kilométerben
     
 
 + Response 200 (application/json)
@@ -42,9 +50,13 @@ Polls is a simple API allowing consumers to view polls and vote in them.
                 "id": 1
             }
 
-## Categories [/category]
+## POI Categories [/poi_category]
 
-### Get categories [GET]
+### Get POI categories [GET]
+
++ Headers
+
+        Accept-language: hu,en-US;q=0.8,en;q=0.6
 
 + Response 200 (application/json)
 
@@ -61,16 +73,20 @@ Polls is a simple API allowing consumers to view polls and vote in them.
     Include POILocation
 + category
     Include POICategory
-+ has_owner: false (boolean)
++ has_owner: false (boolean) //a hely tulajdonosa felvette-e már a kapcsolatot a motoglobe-bal
 + description: `Ez egy nagyon jo bolt. Van itt minden.` (optional, string)
 + website: `http://motorbolt.hu` (optional, string)
 + phone_number: `+3612345678` (optional, string)
 + opening_hours
     Include POIOpening
++ published: false (boolean) //a motoglobe elfogadta-e már ezt a helyet (létrehozni az appból csak false-szal lehet majd!)
 
 ## POILocation (object)
 
-+ address: `Budapest, Lajos u. 74., 1036` (string)
++ display_address: `Budapest, Lajos u. 74., 1036` (string) 
+    
+    displayaddress google-ből (szabadszavas címet ide ne írjunk)
+    
 + lat: 47.530907 (number)
 + lng: 19.039727 (number)
 
