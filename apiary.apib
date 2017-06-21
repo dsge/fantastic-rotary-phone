@@ -68,15 +68,15 @@ Polls is a simple API allowing consumers to view polls and vote in them.
 + id: 1 (number)
 + name: `Motor bolt` (string)
 + location
-    Include POILocation
+    + Include POILocation
 + category
-    Include POICategory
+    + Include POICategory
 + has_owner: false (boolean) //a hely tulajdonosa felvette-e már a kapcsolatot a motoglobe-bal
 + description: `Ez egy nagyon jo bolt. Van itt minden.` (optional, string)
 + website: `http://motorbolt.hu` (optional, string)
 + phone_number: `+3612345678` (optional, string)
 + opening_hours
-    Include POIOpening
+    + Include POIOpening
 + published: false (boolean) //a motoglobe elfogadta-e már ezt a helyet (létrehozni az appból csak false-szal lehet majd!)
 
 ## POILocation (object)
@@ -111,10 +111,10 @@ Polls is a simple API allowing consumers to view polls and vote in them.
 ## POIOpeningPeriod (object)
 
 + open
-    Include POIOpeningDayTime
+    + Include POIOpeningDayTime
     // contains a pair of day and time objects describing when the place opens
 + close
-    Include POIOpeningDayTime
+    + Include POIOpeningDayTime
     // may contain a pair of day and time objects describing when the place closes. Note: If a place is always open, the close section will be missing from the response.
     // Applications can rely on always-open being represented as an open period containing day with value 0 and time with value 0000, and no close
 
