@@ -97,13 +97,7 @@ Polls is a simple API allowing consumers to view polls and vote in them.
 
 + periods: POIOpeningPeriod,POIOpeningPeriod,POIOpeningPeriod,POIOpeningPeriod,POIOpeningPeriod,POIOpeningPeriod,POIOpeningPeriod (array[POIOpeningPeriod])
     // is an array of opening periods covering seven days, starting from Sunday, in chronological order. 
-+ weekday_text: `["Monday: 11:30 AM – 11:00 PM",
-                  "Tuesday: 11:30 AM – 11:00 PM",
-                  "Wednesday: 11:30 AM – 11:00 PM",
-                  "Thursday: 11:30 AM – 11:00 PM",
-                  "Friday: 11:30 AM – 11:00 PM",
-                  "Saturday: 5:00 – 11:00 PM",
-                  "Sunday: 11:30 AM – 11:00 PM"]` (array[string])
++ weekday_text: `Monday: 11:30 AM – 11:00 PM`,`Tuesday: 11:30 AM – 11:00 PM`,`Wednesday: 11:30 AM – 11:00 PM`,`Thursday: 11:30 AM – 11:00 PM`,`Friday: 11:30 AM – 11:00 PM`,`Saturday: 5:00 – 11:00 PM`,`Sunday: 11:30 AM – 11:00 PM` (array[string])
     // is an array of seven strings representing the formatted opening hours for each day of the week. If a language parameter was specified in the Place Details request,
     // the Places Service will format and localize the opening hours appropriately for that language. The ordering of the elements in this array depends on the language parameter.
     // Some languages start the week on Monday while others start on Sunday.
