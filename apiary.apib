@@ -79,6 +79,18 @@ Polls is a simple API allowing consumers to view polls and vote in them.
     + Include POIOpening
 + published: false (boolean) //a motoglobe elfogadta-e már ezt a helyet (létrehozni az appból csak false-szal lehet majd!)
 
+## `POI_owner` (object)
+
++ id: 1 (number)
++ name: `Motor bolt tulajjal` (string)
++ location
+    + Include POILocation
++ category
+    + Include POICategory
++ has_owner: true (boolean) //a hely tulajdonosa felvette-e már a kapcsolatot a motoglobe-bal
++ description: `Ez egy nagyon jo bolt. Van itt minden, es legalabb ket soros a leirasa ennek a helynek.` (optional, string)
++ published: true (boolean) //a motoglobe elfogadta-e már ezt a helyet (létrehozni az appból csak false-szal lehet majd!)
+
 ## POILocation (object)
 
 + display_address: `Budapest, Lajos u. 74., 1036` (string) 
