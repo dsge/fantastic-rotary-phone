@@ -5,7 +5,7 @@ HOST: http://polls.apiblueprint.org/
 
 Polls is a simple API allowing consumers to view polls and vote in them.
 
-## POI [/poi{?page,category,center,radius}]
+## POI [/poi{?category,center,radius}]
 
 ### Get POIs [GET]
 + Headers
@@ -13,7 +13,6 @@ Polls is a simple API allowing consumers to view polls and vote in them.
         Accept-language: `hu,en-US;q=0.8,en;q=0.6`
 
 + Parameters
-    + page (optional, number, `1`)
     + category (optional, array, [`1`])
     + center (required, string, `47.530907,19.039727`)
     
